@@ -2,6 +2,7 @@
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
             <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+            <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
                 <!DOCTYPE html>
@@ -45,6 +46,75 @@
                                 <p class="mx-auto mt-3 max-w-2xl text-xl text-gray-500 sm:mt-4">
                                     This is your life and it's ending one minute @ a time...</p>
                             </div>
+                            <!-- Phần đầu trang giữ nguyên -->
+                            <div class="mx-auto mt-12 grid max-w-lg gap-5 lg:max-w-none lg:grid-cols-3">
+
+                                <c:forEach items="${posts}" var="post" varStatus="loop">
+                                    <div class="flex flex-col overflow-hidden rounded-lg shadow-lg">
+                                        <div class="flex-shrink-0">
+                                            <c:if test="${not empty post.attachments}">
+                                                <c:forEach items="${post.attachments.data}" var="attachment">
+                                                    <c:if test="${not empty attachment.media.image.src}">
+                                                        <img src="${attachment.media.image.src}" 
+                                                            class="h-48 w-full object-cover"
+                                                            onerror="this.src='https://via.placeholder.com/400x200?text=Không+load+được+ảnh'"
+                                                            alt="${not empty post.message ? post.message : 'Ảnh bài viết Facebook'}">
+                                                    </c:if>
+                                                </c:forEach>
+                                            </c:if>
+                                            <c:if test="${empty post.attachments or empty post.attachments.data}">
+                                                <img class="h-48 w-full object-cover" 
+                                                    src="https://via.placeholder.com/400x200?text=No+Image" 
+                                                    alt="Ảnh mặc định">
+                                            </c:if>
+                                        </div>
+                                        <div class="flex flex-1 flex-col justify-between bg-white p-6">
+                                            <div class="flex-1">
+                                                <p class="text-sm font-medium text-indigo-600">
+                                                    <a href="${post.permalinkUrl}" target="_blank" class="hover:underline">
+                                                        Bài viết Facebook
+                                                    </a>
+                                                </p>
+                                                <a href="${post.permalinkUrl}" target="_blank" class="mt-2 block">
+                                                    <p class="text-xl font-semibold text-gray-900">
+                                                        <c:out value="${not empty post.message ? post.message : 'Bài viết không có nội dung chữ'}" />
+                                                    </p>
+                                                    <p class="mt-3 text-base text-gray-500">
+                                                        <fmt:parseDate value="${post.createdTime}" pattern="yyyy-MM-dd'T'HH:mm:ssZ" var="parsedDate" />
+                                                        Đăng ngày: <fmt:formatDate value="${parsedDate}" pattern="dd/MM/yyyy HH:mm" />
+                                                    </p>
+                                                </a>
+                                            </div>
+                                            <div class="mt-6 flex items-center">
+                                                <div class="flex-shrink-0">
+                                                    <a href="${post.permalinkUrl}" target="_blank">
+                                                        <span class="sr-only">Facebook Post</span>
+                                                        <img class="h-10 w-10 rounded-full" 
+                                                            src="https://graph.facebook.com/${post.id.split('_')[0]}/picture?type=square" 
+                                                            alt="Ảnh Fanpage">
+                                                    </a>
+                                                </div>
+                                                <div class="ml-3">
+                                                    <p class="text-sm font-medium text-gray-900">
+                                                        <a href="https://facebook.com/${post.id.split('_')[0]}" target="_blank" class="hover:underline">
+                                                            Fanpage
+                                                        </a>
+                                                    </p>
+                                                    <div class="flex space-x-1 text-sm text-gray-500">
+                                                        <span>ID: ${post.id}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:forEach>
+
+
+                            </div>
+                        </div>
+
+                        <!-- <div class="relative mx-auto max-w-7xl">
+
                             <div class="mx-auto mt-12 grid max-w-lg gap-5 lg:max-w-none lg:grid-cols-3">
 
                                 <div class="flex flex-col overflow-hidden rounded-lg shadow-lg">
@@ -179,145 +249,7 @@
                                 </div>
 
                             </div>
-                        </div>
-
-                        <div class="relative mx-auto max-w-7xl">
-
-                            <div class="mx-auto mt-12 grid max-w-lg gap-5 lg:max-w-none lg:grid-cols-3">
-
-                                <div class="flex flex-col overflow-hidden rounded-lg shadow-lg">
-                                    <div class="flex-shrink-0">
-                                        <img class="h-48 w-full object-cover"
-                                            src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1679&amp;q=80"
-                                            alt="">
-                                    </div>
-                                    <div class="flex flex-1 flex-col justify-between bg-white p-6">
-                                        <div class="flex-1">
-                                            <p class="text-sm font-medium text-indigo-600">
-                                                <a href="#" class="hover:underline">Article</a>
-                                            </p>
-                                            <a href="#" class="mt-2 block">
-                                                <p class="text-xl font-semibold text-gray-900">Boost your conversion
-                                                    rate</p>
-                                                <p class="mt-3 text-base text-gray-500">Lorem ipsum dolor sit amet
-                                                    consectetur adipisicing elit.
-                                                    Architecto accusantium praesentium eius, ut atque fuga culpa,
-                                                    similique sequi cum eos quis dolorum.</p>
-                                            </a>
-                                        </div>
-                                        <div class="mt-6 flex items-center">
-                                            <div class="flex-shrink-0">
-                                                <a href="#">
-                                                    <span class="sr-only">Roel Aufderehar</span>
-                                                    <img class="h-10 w-10 rounded-full"
-                                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                                                        alt="">
-                                                </a>
-                                            </div>
-                                            <div class="ml-3">
-                                                <p class="text-sm font-medium text-gray-900">
-                                                    <a href="#" class="hover:underline">Roel Aufderehar</a>
-                                                </p>
-                                                <div class="flex space-x-1 text-sm text-gray-500">
-                                                    <time datetime="2020-03-16">Mar 16, 2020</time>
-                                                    <span aria-hidden="true">·</span>
-                                                    <span>6 min read</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="flex flex-col overflow-hidden rounded-lg shadow-lg">
-                                    <div class="flex-shrink-0">
-                                        <img class="h-48 w-full object-cover"
-                                            src="https://images.unsplash.com/photo-1547586696-ea22b4d4235d?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1679&amp;q=80"
-                                            alt="">
-                                    </div>
-                                    <div class="flex flex-1 flex-col justify-between bg-white p-6">
-                                        <div class="flex-1">
-                                            <p class="text-sm font-medium text-indigo-600">
-                                                <a href="#" class="hover:underline">Video</a>
-                                            </p>
-                                            <a href="#" class="mt-2 block">
-                                                <p class="text-xl font-semibold text-gray-900">How to use search engine
-                                                    optimization to drive sales</p>
-                                                <p class="mt-3 text-base text-gray-500">Lorem ipsum dolor sit amet
-                                                    consectetur adipisicing elit. Velit
-                                                    facilis asperiores porro quaerat doloribus, eveniet dolore. Adipisci
-                                                    tempora aut inventore optio animi.,
-                                                    tempore temporibus quo laudantium.</p>
-                                            </a>
-                                        </div>
-                                        <div class="mt-6 flex items-center">
-                                            <div class="flex-shrink-0">
-                                                <a href="#">
-                                                    <span class="sr-only">Brenna Goyette</span>
-                                                    <img class="h-10 w-10 rounded-full"
-                                                        src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                                                        alt="">
-                                                </a>
-                                            </div>
-                                            <div class="ml-3">
-                                                <p class="text-sm font-medium text-gray-900">
-                                                    <a href="#" class="hover:underline">Brenna Goyette</a>
-                                                </p>
-                                                <div class="flex space-x-1 text-sm text-gray-500">
-                                                    <time datetime="2020-03-10">Mar 10, 2020</time>
-                                                    <span aria-hidden="true">·</span>
-                                                    <span>4 min read</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="flex flex-col overflow-hidden rounded-lg shadow-lg">
-                                    <div class="flex-shrink-0">
-                                        <img class="h-48 w-full object-cover"
-                                            src="https://images.unsplash.com/photo-1492724441997-5dc865305da7?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1679&amp;q=80"
-                                            alt="">
-                                    </div>
-                                    <div class="flex flex-1 flex-col justify-between bg-white p-6">
-                                        <div class="flex-1">
-                                            <p class="text-sm font-medium text-indigo-600">
-                                                <a href="#" class="hover:underline">Case Study</a>
-                                            </p>
-                                            <a href="#" class="mt-2 block">
-                                                <p class="text-xl font-semibold text-gray-900">Improve your customer
-                                                    experience</p>
-                                                <p class="mt-3 text-base text-gray-500">Lorem ipsum dolor sit amet
-                                                    consectetur adipisicing elit. Sint
-                                                    harum rerum voluptatem quo recusandae magni placeat saepe molestiae,
-                                                    sed excepturi cumque corporis
-                                                    perferendis hic.</p>
-                                            </a>
-                                        </div>
-                                        <div class="mt-6 flex items-center">
-                                            <div class="flex-shrink-0">
-                                                <a href="#">
-                                                    <span class="sr-only">Daniela Metz</span>
-                                                    <img class="h-10 w-10 rounded-full"
-                                                        src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                                                        alt="">
-                                                </a>
-                                            </div>
-                                            <div class="ml-3">
-                                                <p class="text-sm font-medium text-gray-900">
-                                                    <a href="#" class="hover:underline">Daniela Metz</a>
-                                                </p>
-                                                <div class="flex space-x-1 text-sm text-gray-500">
-                                                    <time datetime="2020-02-12">Feb 12, 2020</time>
-                                                    <span aria-hidden="true">·</span>
-                                                    <span>11 min read</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
+                        </div> -->
                     </div>
                     <jsp:include page="footer.jsp" />
 

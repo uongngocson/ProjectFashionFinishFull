@@ -62,11 +62,6 @@ public class HomeController {
         return "client/datatest";
     }
 
-    @GetMapping("blog")
-    public String getBlogPage() {
-        return "client/layout/blog";
-    }
-
     @GetMapping("blogpage")
     public String getBlogPagePage() {
         return "client/layout/blogpage";

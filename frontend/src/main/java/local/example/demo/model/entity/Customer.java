@@ -41,8 +41,6 @@ public class Customer {
 
     private String phone;
 
-    @NotBlank(message = "Email is required")
-    @Email(message = "Invalid email format")
     private String email;
 
     // @Past(message = "Date of birth must be in the past")

@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
 
 import jakarta.servlet.DispatcherType;
 import local.example.demo.service.AccountService;
@@ -52,15 +53,15 @@ public class SecurityConfig {
                 return new CustomLogoutSuccessHandler();
         }
 
-        // @Bean
-        // public SpringSessionRememberMeServices rememberMeServices() {
-        // SpringSessionRememberMeServices rememberMeServices = new
-        // SpringSessionRememberMeServices();
-        // // optionally customize
-        // rememberMeServices.setAlwaysRemember(true);
+        @Bean
+        public SpringSessionRememberMeServices rememberMeServices() {
+        SpringSessionRememberMeServices rememberMeServices = new
+        SpringSessionRememberMeServices();
+        // optionally customize
+        rememberMeServices.setAlwaysRemember(true);
 
-        // return rememberMeServices;
-        // }
+        return rememberMeServices;
+        }
 
         // Ensure this method is present and correctly configured
         @Bean
@@ -75,7 +76,7 @@ public class SecurityConfig {
                                                                 "/register-auth",
                                                                 "/resend-verification", "/product/**",
                                                                 "/resources/**", "/product/category", "/api/**",
-                                                                "/chatbot/**", "/chatbot/send", "/chatbot/demo")
+                                                                "/chatbot/**", "/chatbot/send", "/chatbot/demo", "/forwardPassword")
                                                 .permitAll()
                                                 .requestMatchers("/admin/**").hasRole("ADMIN") // Ensure role is
                                                                                                // correctly defined
@@ -93,14 +94,14 @@ public class SecurityConfig {
                                                 .deleteCookies("JSESSIONID")
                                                 .invalidateHttpSession(true))
 
-                                // .rememberMe(r -> r.rememberMeServices(rememberMeServices()))
+                                .rememberMe(r -> r.rememberMeServices(rememberMeServices()))
 
-                                /*
-                                 * Temporarily disable OAuth2 login configuration
-                                 * .oauth2Login(oauth -> oauth
-                                 * .loginPage("/login")
-                                 * .defaultSuccessUrl("/oauth2-login", true))
-                                 */
+                                
+                          
+                                 .oauth2Login(oauth -> oauth
+                                 .loginPage("/login")
+                                 .defaultSuccessUrl("/oauth2-login", true))
+                                 
 
                                 .formLogin(form -> form
                                                 .loginPage("/login")// Ensure redirect to the correct home page
