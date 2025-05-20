@@ -1,0 +1,3 @@
+để đặt được đơn thì 
+vào sql server chạy 
+ALTER SEQUENCE OrderSequence RESTART WITH 1400;  -- Đặt về số mong muốn

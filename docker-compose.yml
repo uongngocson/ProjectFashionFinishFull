@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+  # Database service
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: fashion-mssql
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Soncute@123
+      - MSSQL_PID=Developer
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql-data:/var/opt/mssql
+    networks:
+      - fashion-network
+    restart: unless-stopped
+
+  # Backend service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: fashion-backend
+    ports:
+      - "8089:8089"
+    networks:
+      - fashion-network
+    restart: unless-stopped
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:sqlserver://host.docker.internal\\SQLEXPRESS:1433;databaseName=ClothesShopV1;encrypt=true;trustServerCertificate=true
+      - SPRING_DATASOURCE_USERNAME=sonit
+      - SPRING_DATASOURCE_PASSWORD=Soncute@123
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # Frontend service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: fashion-frontend
+    depends_on:
+      - backend
+    ports:
+      - "8080:8080"
+    networks:
+      - fashion-network
+    restart: unless-stopped
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:sqlserver://host.docker.internal\\SQLEXPRESS:1433;databaseName=ClothesShopV1;encrypt=true;trustServerCertificate=true
+      - SPRING_DATASOURCE_USERNAME=sonit
+      - SPRING_DATASOURCE_PASSWORD=Soncute@123
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # Reverse proxy for routing and SSL termination
+  nginx:
+    image: nginx:alpine
+    container_name: fashion-nginx
+    depends_on:
+      - frontend
+      - backend
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf:/etc/nginx/conf.d
+      - ./nginx/ssl:/etc/nginx/ssl
+    networks:
+      - fashion-network
+    restart: unless-stopped
+
+networks:
+  fashion-network:
+    driver: bridge
+
+volumes:
+  mssql-data:

@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500&display=swap');
+        
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+.category-parent {
+
+    .font-serif {
+        font-family: 'Cormorant Garamond', serif;
+        letter-spacing: 0.5px;
+    }
+    
+    .nav-link::after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 1px;
+        background: #000;
+        transition: width 0.3s;
+    }
+    
+    .nav-link:hover::after {
+        width: 100%;
+    }
+    
+    .product-card:hover .product-image {
+        transform: scale(1.03);
+    }
+    
+    .product-card:hover .quick-view {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .quick-view {
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.3s ease;
+    }
+    
+    .dropdown:hover .dropdown-menu {
+        display: block !important;
+        z-index: 1000;
+        background-color: blue;
+    }
+    
+    .pagination-item:hover {
+        background-color: #f3f4f6;
+    }
+    
+    .pagination-item.active {
+        background-color: #000;
+        color: white;
+    }
+}
+

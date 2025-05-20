@@ -1,0 +1,54 @@
+body {
+    font-family: 'Inter', sans-serif;
+    color: #1a1a1a;
+    background-color: #f9f9f9;
+}
+
+.heading-font {
+    font-family: 'Playfair Display', serif;
+}
+
+.cart-item {
+    transition: all 0.3s ease;
+}
+
+.cart-item:hover {
+    background-color: #f5f5f5;
+}
+
+.quantity-selector {
+    border: 1px solid #e5e5e5;
+}
+
+.quantity-selector button {
+    transition: all 0.2s ease;
+}
+
+.quantity-selector button:hover {
+    background-color: #f0f0f0;
+}
+
+.summary-card {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.btn-checkout {
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+}
+
+.btn-checkout:hover {
+    background-color: #1a1a1a;
+}
+
+.remove-btn {
+    transition: all 0.2s ease;
+}
+
+.remove-btn:hover {
+    color: #1a1a1a;
+}
+
+.divider {
+    border-color: rgba(0, 0, 0, 0.08);
+}

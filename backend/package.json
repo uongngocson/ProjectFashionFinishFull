@@ -1,0 +1,24 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "scss": "sass src/main/webapp/resources/scss:src/main/webapp/resources/css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.3",
+    "sass": "^1.75.0",
+    "tailwindcss": "^4.0.11"
+  },
+  "dependencies": {
+    "demo": "file:"
+  }
+}

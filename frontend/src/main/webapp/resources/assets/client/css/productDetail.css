@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a1a1a;
+        }
+        
+        .product-gallery {
+            scrollbar-width: none;
+        }
+        
+        .product-gallery::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .size-option {
+            transition: all 0.2s ease;
+        }
+        
+        .size-option:hover, .size-option.selected {
+            border-color: #1a1a1a;
+        }
+        
+        .color-option {
+            transition: all 0.2s ease;
+        }
+        
+        .color-option.selected {
+            outline: 2px solid #1a1a1a;
+            outline-offset: 2px;
+        }
+        
+        .discount-badge {
+            background-color: #f03d3d;
+        }
+        
+        .btn-primary {
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: #1a1a1a;
+        }
+        
+        .btn-secondary {
+            transition: all 0.2s ease;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .specs-table tr:not(:last-child) {
+            border-bottom: 1px solid #e5e5e5;
+        }
+        
+        .shop-rating {
+            background-color: #f8f8f8;
+        }
+        
+        @media (max-width: 768px) {
+            .product-container {
+                flex-direction: column;
+            }
+            
+            .product-gallery {
+                flex-direction: row;
+                overflow-x: auto;
+            }
+            
+            .thumbnail-container {
+                flex-direction: row;
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+        }

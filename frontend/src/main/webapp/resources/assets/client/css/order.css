@@ -1,0 +1,39 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+}
+.serif {
+    font-family: 'Cormorant Garamond', serif;
+}
+.input-field {
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #e5e5e5;
+}
+.input-field:focus {
+    border-bottom-color: #000;
+    outline: none;
+}
+.checkout-btn {
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+}
+.checkout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.payment-method {
+    transition: all 0.2s ease;
+}
+.payment-method:hover {
+    border-color: #000;
+}
+.payment-method.selected {
+    border-color: #000;
+    background-color: #f8f8f8;
+}
+@media (max-width: 768px) {
+    .checkout-grid {
+        grid-template-columns: 1fr;
+    }
+}

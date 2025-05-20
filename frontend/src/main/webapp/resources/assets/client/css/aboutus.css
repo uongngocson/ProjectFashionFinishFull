@@ -1,0 +1,35 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: #333;
+    scroll-behavior: smooth;
+}
+.playfair {
+    font-family: 'Playfair Display', serif;
+}
+.nav-link {
+    position: relative;
+}
+.nav-link:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: #000;
+    transition: width 0.3s ease;
+}
+.nav-link:hover:after {
+    width: 100%;
+}
+.timeline-item:not(:last-child):after {
+    content: '';
+    position: absolute;
+    top: 24px;
+    left: 50%;
+    height: 40px;
+    border-left: 1px solid #000;
+}
+.team-card:hover .team-overlay {
+    opacity: 1;
+}
